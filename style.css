@@ -216,6 +216,102 @@ body {
   }
   /*product-section*/
 
+/* About Us Section */
+.about-us {
+    padding: 2rem;
+    text-align: center;
+  }
+  .about-us h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .about-us p {
+    font-size: 1rem;
+    color: #555;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+    text-align: justify;
+  }
+  .products {
+    padding: 2rem;
+    text-align: center;
+  }
+  .products h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .product-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    padding: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .product-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+  }
+  .product-card h3 {
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+  }
+  .product-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  /* end*/
+  /* contact-form*/
+  #contact-section {
+    border-top: 1px solid #ccc;
+    margin: 20px auto; 
+    max-width: 400px; 
+    padding: 20px;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start; 
+  }
+  form label {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  form input, form textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; 
+  }
+  form textarea {
+    height: 100px; 
+  }
+  form button {
+    font-size: 16px;
+    background-color: #333;
+    color: #fff;
+    border: none; 
+    border-radius: 3px;
+    padding: 10px 20px;
+    cursor: pointer; 
+    align-self: center;
+  }
+  form button:hover {
+    background-color: #555;
+  }
+  /* end */
   /*footer-part*/
 .footer {
     text-align: center; 
