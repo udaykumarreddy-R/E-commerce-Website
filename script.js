@@ -78,3 +78,24 @@ productLink.addEventListener('click', () => {
   registerSection.style.display = 'none';
  
 });
+// Navigate to login-page
+loginLink.addEventListener('click', () => {
+    homeSection.style.display = 'none'; 
+    aboutSection.style.display = 'none';
+    contactSection.style.display = 'none';
+    latestProductsSection.style.display='none'; 
+    cartSection.style.display = 'none';
+    loginSection.style.display = 'block';
+    registerSection.style.display = 'none';
+  });
+  // Navigate to register-page
+  registerLink.addEventListener('click', () => {
+    homeSection.style.display = 'none'; 
+    aboutSection.style.display = 'none';
+    contactSection.style.display = 'none';
+    latestProductsSection.style.display='none'; 
+    cartSection.style.display = 'none';
+    loginSection.style.display = 'none';
+    registerSection.style.display = 'block';
+  });
+  
