@@ -98,4 +98,21 @@ loginLink.addEventListener('click', () => {
     loginSection.style.display = 'none';
     registerSection.style.display = 'block';
   });
-  
+  cartLink.addEventListener('click', () => {
+    homeSection.style.display = 'none'; 
+    aboutSection.style.display = 'none';
+    contactSection.style.display = 'none';
+    latestProductsSection.style.display = 'none'; 
+    loginSection.style.display = 'none';
+    registerSection.style.display = 'none'; 
+    showCartModal();
+  });
+  document.querySelectorAll(".switch-tab").forEach(link => {
+    link.addEventListener("click", function () {
+      const targetId = this.getAttribute("href").slice(1);
+      document.querySelectorAll(".form-container").forEach(form => {
+        form.style.display = "none";
+      });
+      document.getElementById(targetId).style.display = "block";
+    });
+  });
