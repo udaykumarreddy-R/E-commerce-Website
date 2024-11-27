@@ -476,6 +476,27 @@ body {
     font-weight: bold;
   }
   
+/* Order Summary Section */
+.order-summary {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 20px;
+    font-weight: bold;
+  }
+  
+  .order-summary h5 {
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    background-color: #ddd;
+  }
+  
+  .checkout-button {
+    margin-top: 20px;
+  }
   /*footer-part*/
 .footer {
     text-align: center; 

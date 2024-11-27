@@ -116,3 +116,39 @@ loginLink.addEventListener('click', () => {
       document.getElementById(targetId).style.display = "block";
     });
   });
+  // Fetch products and create product cards
+function fetchproducts(category){
+    fetch('https://fakestoreapi.com/products')
+    .then(response => response.json())
+    .then(products => {
+      if (category) {
+        products = products.filter(product => product.category.toUpperCase() === category.toUpperCase());
+      }
+      console.log("Product details",products);
+      cardsContainer.innerHTML = '';
+      products.forEach(product => {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.innerHTML = `
+          <img src="${product.image}" alt="${product.title}">
+          <div class="card-body">
+            <h3 class="card-title">${product.title}</h3>
+            <p class="card-description">${product.description.substring(0, 100)}...</p>
+            <p class="card-price">$${product.price}</p>
+            <div class="card-actions">
+              <button class="details-btn">Details</button>
+              <button class="cart-btn" data-id="${product.id}">Add to Cart</button>
+            </div>
+          </div>
+        `;
+        const detailsBtn = card.querySelector('.details-btn');
+        detailsBtn.addEventListener('click', () =>{ 
+          openDetailsModal(product);
+  });
+        const cartBtn = card.querySelector('.cart-btn');
+        cartBtn.addEventListener('click', () => addToCart(product));
+        cardsContainer.appendChild(card);
+      });
+      
+    }).catch(error => console.error('Error fetching data:', error));
+  }
