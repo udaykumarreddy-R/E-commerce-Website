@@ -484,7 +484,6 @@ body {
     padding: 20px;
     font-weight: bold;
   }
-  
   .order-summary h5 {
     border: 2px solid #ddd;
     border-radius: 8px;
@@ -493,7 +492,6 @@ body {
     text-align: center;
     background-color: #ddd;
   }
-  
   .checkout-button {
     margin-top: 20px;
   }

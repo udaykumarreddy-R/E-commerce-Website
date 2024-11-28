@@ -152,3 +152,29 @@ function fetchproducts(category){
       
     }).catch(error => console.error('Error fetching data:', error));
   }
+  const mensClothingFilterBtn = document.getElementById('mens-clothing-btn'); 
+const womensClothingFilterBtn = document.getElementById('womens-clothing-btn'); 
+const jewelryFilterBtn = document.getElementById('jewelry-btn'); 
+const electronicsFilterBtn = document.getElementById('electronics-btn'); 
+const allProductsFilterBtn = document.getElementById('all-products-btn'); 
+// it will sort men's clothing
+mensClothingFilterBtn.addEventListener('click', () => {
+  fetchproducts("men's clothing");
+});
+// it will sort women's clothing
+womensClothingFilterBtn.addEventListener('click', () => {
+  fetchproducts("women's clothing");
+});
+// it will sort jewelery
+jewelryFilterBtn.addEventListener('click', () => {
+  fetchproducts("jewelery");
+});
+// it will sort electronics
+electronicsFilterBtn.addEventListener('click', () => {
+  fetchproducts("electronics");
+});
+// it will sort All
+allProductsFilterBtn.addEventListener('click', () => {
+  fetchproducts(); 
+});
+fetchproducts();
