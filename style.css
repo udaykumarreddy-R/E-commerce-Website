@@ -463,14 +463,11 @@ body {
     padding: 30px;
   
   }
-  
   .item-quantity button {
     width: 30px;
     height: 30px;
     line-height: 1;
-    
   }
-  
   .item-quantity span {
     margin: 0 10px;
     font-weight: bold;

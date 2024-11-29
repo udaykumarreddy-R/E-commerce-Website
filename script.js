@@ -178,3 +178,109 @@ allProductsFilterBtn.addEventListener('click', () => {
   fetchproducts(); 
 });
 fetchproducts();
+// here  i took local-storage
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+function addToCart(product) {
+  cart.push(product);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  updateCartCount();
+}
+function updateCartCount() {
+  cartCount.textContent = cart.length;
+}
+function showCartModal() {
+  cartSection.style.display = 'block';
+  displayCartItems();
+  updateCartCount();
+}
+// Function to display cart items in the cart
+function displayCartItems() {
+  cartItemsContainer.innerHTML = '';
+ let totalPrice = 0;
+ const shippingCost = 30.00;
+  const cartContainer = document.createElement('div');
+  cartContainer.id = 'cart-container';
+  cartContainer.innerHTML = `
+    <h2 class="cart-name">Cart</h2>
+    <hr>
+    <div class="row">
+      <!-- Item List Section -->
+      <div class="col-md-8">
+        <div id="item-list">
+          <h4>Item List</h4>
+        </div>
+      </div>
+      <!-- Order Summary Section -->
+      <div class="col-md-4">
+        <div class="order-summary">
+          <h5>Order Summary</h5>
+          <p>Products(<span id="cart-count1">0</span>): <span class="spanner" style="float: right;">$0</span></p>
+          <p>Shipping: <span class="spanner" style="float: right;">$30</span></p>
+          <h4>Total Amount: <span class="spanner" style="float: right;">$0</span></h4>
+          <button class="btn btn-dark w-100 checkout-button">Go to checkout</button>
+        </div>
+      </div>
+    </div>
+  `;
+  // Append the cart container to the parent element
+  cartItemsContainer.appendChild(cartContainer);
+  const itemListContainer = document.querySelector('#item-list');
+  const h4Element = itemListContainer.querySelector('h4');
+  // Check if the cart is empty
+  if (cart.length === 0) {
+    itemListContainer.innerHTML += '<p>Your cart is empty.</p>';
+    return;
+  } 
+    cart.forEach((product, index) => {
+      if (!product.quantity) {
+        product.quantity = 1;
+      }
+      const item = document.createElement('div');
+      item.classList.add('cart-item');
+      item.innerHTML = `
+        <div class="cart-item">
+          <img src="${product.image}" alt="${product.title}">
+          <div class="item-details">
+            <div class="item-detail">
+              <h6 class="mb-1">${product.title}</h6>
+            </div>
+            <div class="item-quantity">
+              <div class="btn-1">
+                <button class="decrease">-</button>
+                <span>1</span>
+                <button class="increase">+</button>
+              </div>
+              <p class="mb-0">$${product.price}</p>
+            </div>
+          </div>
+        </div>
+      `;
+      h4Element.insertAdjacentElement('afterend', item);
+      // Calculate total price
+      totalPrice += product.price * product.quantity;
+       const decreaseButton = item.querySelector('.decrease');
+       const increaseButton = item.querySelector('.increase');
+       const quantitySpan = item.querySelector('.btn-1 span');
+       const priceParagraph = item.querySelector('.item-quantity p');
+       decreaseButton.addEventListener('click', () => {
+        if (product.quantity > 1) {
+          product.quantity--;
+        }
+        else {
+          cart.splice(index, 1);
+          localStorage.setItem('cart', JSON.stringify(cart)); 
+          displayCartItems();
+          return; 
+        }
+        quantitySpan.textContent = product.quantity;
+        priceParagraph.textContent = `$${(product.price * product.quantity).toFixed(2)}`;
+        updateSummary();
+      });
+      increaseButton.addEventListener('click', () => {
+        product.quantity++;
+        quantitySpan.textContent = product.quantity;
+        priceParagraph.textContent = `$${(product.price * product.quantity).toFixed(2)}`;
+        updateSummary();
+      });
+    });
+ 
