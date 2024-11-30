@@ -283,4 +283,17 @@ function displayCartItems() {
         updateSummary();
       });
     });
+    // Function to update the order summary
+   function updateSummary() {
+    totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    document.getElementById('cart-count1').textContent = cart.length;
+    document.querySelector('.order-summary .spanner').textContent = `$${totalPrice.toFixed(2)}`;
+    const totalAmountElement = document.querySelector('.order-summary h4 .spanner');
+    const shippingCostApplied = totalPrice >= 200 ? shippingCost : 0;
+    totalAmountElement.textContent = `$${(totalPrice + shippingCostApplied).toFixed(2)}`;
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+  updateSummary();
+}
+
  

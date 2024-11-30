@@ -437,8 +437,6 @@ body {
     border-radius: 4px;
     margin-right: 15px;
   }
-  
-  
   .item-details {
     flex-grow: 1;
     display: flex;
@@ -472,7 +470,6 @@ body {
     margin: 0 10px;
     font-weight: bold;
   }
-  
 /* Order Summary Section */
 .order-summary {
     border: 1px solid #ddd;
