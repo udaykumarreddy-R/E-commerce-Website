@@ -296,4 +296,72 @@ function displayCartItems() {
   updateSummary();
 }
 
+// details-page
+function openDetailsModal(product) {
+    category.textContent = product.category;
+    modalTitle.textContent = product.title;
+    modalImage.src = product.image;
+    modalDescription.textContent = product.description;
+    modalPrice.textContent = `$${product.price.toFixed(2)}`;
+    rating.textContent = `${product.rating.rate} ★`;
+    addToCartBtn.onclick = () => addToCart(product);
+    carouselInner.innerHTML = '';
+    const activeItem = createCarouselItem(product);
+    activeItem.classList.add('active');
+    carouselInner.appendChild(activeItem);
+    // for  fetch the cards into  slider
+    fetch('https://fakestoreapi.com/products')
+      .then(response => response.json())
+      .then(products => {
+        products.forEach(p => {
+          if (p.id !== product.id) { 
+            const item = createCarouselItem(p);
+            carouselInner.appendChild(item);
+          }
+        });
+      })
+      .catch(error => console.error('Error fetching products:', error));
+    detailsModal.style.display = 'block';
+  }
+  // for sliders
+  function createCarouselItem(product) {
+    const item = document.createElement('div');
+    item.classList.add('carousel-item');
+    item.innerHTML = `
+      <div class="card">
+        <img src="${product.image}" alt="${product.title}" class="d-block w-100">
+        <div class="card-body">
+         <h3 class="card-title">${product.title}</h3>
+            <p class="card-description">${product.description.substring(0, 100)}...</p>
+            <p class="card-price">$${product.price}</p>
+            <div class="card-actions">
+              <button class="details-btn">Details</button>
+              <button class="cart-btn" data-id="${product.id}">Add to Cart</button>
+            </div>
+        </div>
+      </div>
+    `;
+    return item;
+  }
+  closeModal.addEventListener('click', () => {
+    detailsModal.style.display = 'none';
+  });
+  window.addEventListener('click', (event) => {
+    if (event.target === detailsModal) {
+      detailsModal.style.display = 'none';
+    }
+  });
+  //it will take to go to cart
+  const gocart = document.getElementById('go-to-cart-btn');
+  gocart.addEventListener('click', () => {
+    homeSection.style.display = 'none';
+    aboutSection.style.display = 'none';
+    contactSection.style.display = 'none';
+    latestProductsSection.style.display = 'none';
+    loginSection.style.display = 'none';
+    registerSection.style.display = 'none';
+   detailsModal.style.display = 'none';
+    cartSection.style.display = 'block';
+    displayCartItems();
+  });
  
