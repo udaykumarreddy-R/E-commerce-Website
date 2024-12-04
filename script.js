@@ -124,7 +124,7 @@ function fetchproducts(category){
       if (category) {
         products = products.filter(product => product.category.toUpperCase() === category.toUpperCase());
       }
-      console.log("Product details",products);
+     
       cardsContainer.innerHTML = '';
       products.forEach(product => {
         const card = document.createElement('div');
@@ -295,64 +295,125 @@ function displayCartItems() {
   }
   updateSummary();
 }
+// Get elements
 
-// details-page
+const prevButton = document.getElementById('prev');
+const nextButton = document.getElementById('next');
+
+// Open modal with product details and slider
 function openDetailsModal(product) {
-    category.textContent = product.category;
-    modalTitle.textContent = product.title;
-    modalImage.src = product.image;
-    modalDescription.textContent = product.description;
-    modalPrice.textContent = `$${product.price.toFixed(2)}`;
-    rating.textContent = `${product.rating.rate} ★`;
-    addToCartBtn.onclick = () => addToCart(product);
-    carouselInner.innerHTML = '';
-    const activeItem = createCarouselItem(product);
-    activeItem.classList.add('active');
-    carouselInner.appendChild(activeItem);
-    // for  fetch the cards into  slider
-    fetch('https://fakestoreapi.com/products')
-      .then(response => response.json())
-      .then(products => {
-        products.forEach(p => {
-          if (p.id !== product.id) { 
-            const item = createCarouselItem(p);
-            carouselInner.appendChild(item);
-          }
-        });
-      })
-      .catch(error => console.error('Error fetching products:', error));
-    detailsModal.style.display = 'block';
-  }
-  // for sliders
-  function createCarouselItem(product) {
-    const item = document.createElement('div');
-    item.classList.add('carousel-item');
-    item.innerHTML = `
-      <div class="card">
-        <img src="${product.image}" alt="${product.title}" class="d-block w-100">
-        <div class="card-body">
-         <h3 class="card-title">${product.title}</h3>
-            <p class="card-description">${product.description.substring(0, 100)}...</p>
-            <p class="card-price">$${product.price}</p>
-            <div class="card-actions">
-              <button class="details-btn">Details</button>
-              <button class="cart-btn" data-id="${product.id}">Add to Cart</button>
-            </div>
+  category.textContent = product.category;
+  modalTitle.textContent = product.title;
+  modalImage.src = product.image;
+  modalDescription.textContent = product.description;
+  modalPrice.textContent = `$${product.price.toFixed(2)}`;
+  rating.textContent = `${product.rating.rate} ★`;
+
+  addToCartBtn.onclick = () => addToCart(product);
+
+  // Fetch and display slider products
+  fetch('https://fakestoreapi.com/products')
+    .then(response => response.json())
+    .then(products => {
+      // Exclude the current product from the slider
+      const filteredProducts = products.filter(p => p.id !== product.id);
+      renderSlider(filteredProducts);
+    })
+    .catch(error => console.error('Error fetching products:', error));
+const art=document.getElementById('latest-products1')
+art.style.display = 'block';
+  detailsModal.style.display = 'block';
+  homeSection.style.display = 'none'; 
+  aboutSection.style.display = 'none';
+  contactSection.style.display = 'none';
+  latestProductsSection.style.display='none'; 
+  cartSection.style.display = 'none';
+  loginSection.style.display = 'none';
+  registerSection.style.display = 'none';
+}
+const drt=document.getElementById('cards-container1')
+function renderSlider(products) {
+  drt.innerHTML = '';
+  products.forEach(product => {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.style.width = '200px'; 
+    card.style.margin = '10px';
+    card.innerHTML = `
+      <img src="${product.image}" alt="${product.title}">
+      <div class="card-body">
+        <h3 class="card-title">${product.title}</h3>
+        <p class="card-description">${product.description.substring(0, 100)}...</p>
+        <p class="card-price">$${product.price.toFixed(2)}</p>
+        <div class="card-actions">
+          <button class="details-btn">Details</button>
+          <button class="cart-btn" data-id="${product.id}">Add to Cart</button>
         </div>
       </div>
     `;
-    return item;
+    card.querySelector('.details-btn').addEventListener('click', () => openDetailsModal(product));
+    card.querySelector('.cart-btn').addEventListener('click', () => addToCart(product));
+    drt.appendChild(card);
+  });
+  resetSlider(); 
+  startAutoRotate(); 
+}
+
+const cardWidth = 220;
+const autoRotateInterval = 2500; 
+let currentIndex = 0; 
+let autoRotate;
+//slider to rotate
+function setupInfiniteSlider() {
+  const cards = document.querySelectorAll('.card');
+  const totalCards = cards.length;
+  for (let i = 0; i < totalCards; i++) {
+    const clone = cards[i].cloneNode(true);
+    drt.appendChild(clone); 
   }
-  closeModal.addEventListener('click', () => {
-    detailsModal.style.display = 'none';
-  });
-  window.addEventListener('click', (event) => {
-    if (event.target === detailsModal) {
-      detailsModal.style.display = 'none';
+  
+  for (let i = totalCards - 1; i >= 0; i--) {
+    const clone = cards[i].cloneNode(true);
+    drt.insertBefore(clone, drt.firstChild); 
+  }
+  drt.style.transform = `translateX(-${totalCards * cardWidth}px)`;
+}
+function updateSlider() {
+  const totalCards = document.querySelectorAll('.card').length / 3; 
+  drt.style.transition = `transform 0.5s ease-in-out`; 
+  drt.style.transform = `translateX(-${(currentIndex + totalCards) * cardWidth}px)`;
+  setTimeout(() => {
+    if (currentIndex === totalCards) {
+      drt.style.transition = `none`; 
+      currentIndex = 0; 
+      drt.style.transform = `translateX(-${totalCards * cardWidth}px)`;
     }
-  });
-  //it will take to go to cart
-  const gocart = document.getElementById('go-to-cart-btn');
+  }, 500); 
+}
+//slider to rotate start
+function startAutoRotate() {
+  autoRotate = setInterval(() => {
+    currentIndex++; 
+    updateSlider(); 
+  }, autoRotateInterval); 
+}
+//slider to rotate stop
+function stopAutoRotate() {
+  clearInterval(autoRotate);
+}
+setupInfiniteSlider();
+startAutoRotate();
+drt.addEventListener('mouseenter', stopAutoRotate);
+drt.addEventListener('mouseleave', startAutoRotate);
+function resetSlider() {
+  currentIndex = 0;
+  updateSlider();
+}
+function updateSlider() {
+  const cardWidth = 220; 
+  drt.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+}
+const gocart = document.getElementById('go-to-cart-btn');
   gocart.addEventListener('click', () => {
     homeSection.style.display = 'none';
     aboutSection.style.display = 'none';
@@ -364,4 +425,3 @@ function openDetailsModal(product) {
     cartSection.style.display = 'block';
     displayCartItems();
   });
- 
