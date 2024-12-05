@@ -43,7 +43,6 @@ homeLink.addEventListener('click', () => {
     cartSection.style.display = 'none';
     loginSection.style.display = 'none';
     registerSection.style.display = 'none';
-  
 });
 // Show About Section
 aboutLink.addEventListener('click', () => {
@@ -54,7 +53,6 @@ aboutLink.addEventListener('click', () => {
     cartSection.style.display = 'none';
     loginSection.style.display = 'none';
     registerSection.style.display = 'none';
-   
 });
 // Show Contact Section
 contactLink.addEventListener('click', () => {
@@ -69,7 +67,7 @@ contactLink.addEventListener('click', () => {
 });
 // Navigate to latest-products
 productLink.addEventListener('click', () => {
-  homeSection.style.display = 'block'; 
+  homeSection.style.display = 'none'; 
   aboutSection.style.display = 'none';
   contactSection.style.display = 'none';
   latestProductsSection.style.display='block'; 
@@ -308,7 +306,8 @@ function openDetailsModal(product) {
   modalDescription.textContent = product.description;
   modalPrice.textContent = `$${product.price.toFixed(2)}`;
   rating.textContent = `${product.rating.rate} ★`;
-
+  document.querySelectorAll('header, footer').forEach(element => {
+    element.style.zIndex = '10';})
   addToCartBtn.onclick = () => addToCart(product);
 
   // Fetch and display slider products
@@ -425,3 +424,8 @@ const gocart = document.getElementById('go-to-cart-btn');
     cartSection.style.display = 'block';
     displayCartItems();
   });
+// Get modal and close button elements
+
+
+
+

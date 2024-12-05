@@ -8,8 +8,10 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
+  z-index: 10005;
   background-color: #f4f4f4;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  
 }
 .logo {
   font-size: 1.5em;
@@ -79,6 +81,7 @@ hero-section {
 section {
   padding: 20px;
   text-align: center;
+  background-color: #ddd;
 }
 section h2 {
   font-size: 1.8em;
@@ -492,8 +495,6 @@ body {
 /* detail-page */
 .modal {
   display: none; 
-  position: fixed; 
-  z-index: 1; 
   left: 0;
   top: 0;
   width: 100%;
@@ -501,6 +502,9 @@ body {
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
   padding-top: 60px;
+  padding: 20px;
+  position: fixed;
+  z-index: 1000;
 }
 
 .modal-content {
@@ -669,14 +673,3 @@ body {
   z-index: 1;
 }
 
-#prev {
-  top: 850px;
-  left: 10px;
-  border-radius: 50%;
-}
-
-#next {
-  top: 850px;
-  right: 10px;
-  border-radius: 50%;
-}
